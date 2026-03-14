@@ -1,0 +1,12 @@
+create venv :- python -m venv venv
+
+activate the venv :- source venv/Scripts/activate
+
+commit on every phase completion :-
+git add .
+git commit -m "Phase 8: Gemini AI integration added"
+git push
+
+if want to go on last stage:-
+git log
+git checkout COMMIT_ID

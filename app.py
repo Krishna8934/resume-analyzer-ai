@@ -1,3 +1,4 @@
+from utils.ai_analyzer import analyze_resume
 from utils.resume_parser import extract_resume_text
 from flask import Flask, request, render_template, jsonify
 import os
@@ -7,6 +8,8 @@ app = Flask(__name__)
 # upload folder
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # allowed file types
 ALLOWED_EXTENSIONS = {"pdf", "docx"}
@@ -36,16 +39,15 @@ def upload_resume():
         filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
         file.save(filepath)
 
-        # Extract resume text
         resume_text = extract_resume_text(filepath)
 
+        # AI analysis
+        analysis = analyze_resume(resume_text)
+
         return jsonify({
-            "message": "Resume uploaded successfully",
-            "extracted_text_preview": resume_text[:500]   # first 500 characters
+        "message": "Resume analyzed successfully",
+        **analysis
         })
-
-    return jsonify({"error": "Only PDF and DOCX allowed"})
-
 
 
 if __name__ == "__main__":
