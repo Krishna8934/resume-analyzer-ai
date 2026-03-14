@@ -1,3 +1,4 @@
+from utils.ai_analyzer import match_job_role
 from utils.ai_analyzer import analyze_resume
 from utils.resume_parser import extract_resume_text
 from flask import Flask, request, render_template, jsonify
@@ -49,6 +50,26 @@ def upload_resume():
         **analysis
         })
 
+@app.route("/match_job", methods=["POST"])
+def match_job():
 
+    job_role = request.form.get("job_role")
+    resume_file = request.files.get("resume")
+
+    if not job_role or not resume_file:
+        return jsonify({"error": "Job role and resume required"})
+
+    filepath = os.path.join(app.config["UPLOAD_FOLDER"], resume_file.filename)
+    resume_file.save(filepath)
+
+    resume_text = extract_resume_text(filepath)
+
+    result = match_job_role(resume_text, job_role)
+
+    return jsonify({
+        **result,
+        "message": "Job match analysis completed"
+    })
+    
 if __name__ == "__main__":
     app.run(debug=True)
