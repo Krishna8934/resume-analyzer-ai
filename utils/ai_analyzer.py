@@ -107,3 +107,55 @@ Rules:
 
     except Exception as e:
         return {"error": str(e)}
+    
+
+def suggest_resume_improvements(resume_text):
+
+    resume_text = resume_text[:4000]
+
+    prompt = f"""
+You are an expert resume reviewer.
+
+Analyze the following resume and suggest improvements.
+
+Resume:
+{resume_text}
+
+Return ONLY valid JSON.
+
+Format:
+
+{{
+ "project_improvements": [],
+ "achievement_improvements": [],
+ "formatting_improvements": [],
+ "general_improvements": []
+}}
+
+Rules:
+- project_improvements → how projects can be described better
+- achievement_improvements → how achievements can be quantified
+- formatting_improvements → layout, readability, sections
+- general_improvements → overall resume quality suggestions
+"""
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.3
+        )
+
+        content = response.choices[0].message.content
+
+        import json, re
+        content = re.sub(r"```json|```", "", content).strip()
+        match = re.search(r"\{.*\}", content, re.DOTALL)
+
+        if match:
+            return json.loads(match.group(0))
+
+        return {"error": "Invalid AI response"}
+
+    except Exception as e:
+        return {"error": str(e)}

@@ -1,3 +1,4 @@
+from utils.ai_analyzer import suggest_resume_improvements
 from utils.ai_analyzer import match_job_role
 from utils.ai_analyzer import analyze_resume
 from utils.resume_parser import extract_resume_text
@@ -69,6 +70,53 @@ def match_job():
     return jsonify({
         **result,
         "message": "Job match analysis completed"
+    })
+    
+@app.route("/improve_resume", methods=["POST"])
+def improve_resume():
+
+    resume_file = request.files.get("resume")
+
+    if not resume_file:
+        return jsonify({"error": "Resume required"})
+
+    filepath = os.path.join(app.config["UPLOAD_FOLDER"], resume_file.filename)
+    resume_file.save(filepath)
+
+    resume_text = extract_resume_text(filepath)
+
+    result = suggest_resume_improvements(resume_text)
+
+    return jsonify({
+        **result,
+        "message": "Resume improvement suggestions generated"
+    })
+    
+@app.route("/full_analysis", methods=["POST"])
+def full_analysis():
+
+    resume_file = request.files.get("resume")
+    job_role = request.form.get("job_role")
+
+    if not resume_file:
+        return jsonify({"error": "Resume required"})
+
+    filepath = os.path.join(app.config["UPLOAD_FOLDER"], resume_file.filename)
+    resume_file.save(filepath)
+
+    # Extract text only once
+    resume_text = extract_resume_text(filepath)
+
+    # Run all AI functions
+    ats_result = analyze_resume(resume_text)
+    job_result = match_job_role(resume_text, job_role)
+    improve_result = suggest_resume_improvements(resume_text)
+
+    return jsonify({
+        "ATS_analysis": ats_result,
+        "job_match": job_result,
+        "improvements": improve_result,
+        "message": "Full resume analysis completed"
     })
     
 if __name__ == "__main__":
