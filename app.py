@@ -1,3 +1,4 @@
+from utils.bullet_point_improver import improve_bullet_point
 from utils.ai_analyzer import suggest_resume_improvements
 from utils.ai_analyzer import match_job_role
 from utils.ai_analyzer import analyze_resume
@@ -117,6 +118,24 @@ def full_analysis():
         "job_match": job_result,
         "improvements": improve_result,
         "message": "Full resume analysis completed"
+    })
+    
+@app.route("/bullet_improver", methods=["GET", "POST"])
+def bullet_improver():
+
+    if request.method == "GET":
+        return render_template("bullet_improver.html")
+
+    bullet_point = request.form.get("bullet_point")
+
+    if not bullet_point:
+        return jsonify({"error": "Bullet point required"})
+
+    result = improve_bullet_point(bullet_point)
+
+    return jsonify({
+        **result,
+        "message": "Bullet point improved successfully"
     })
     
 if __name__ == "__main__":
