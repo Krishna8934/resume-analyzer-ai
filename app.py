@@ -1,3 +1,4 @@
+from utils.resume_vs_job import analyze_resume_vs_job
 from utils.bullet_point_improver import improve_bullet_point
 from utils.ai_analyzer import suggest_resume_improvements
 from utils.ai_analyzer import match_job_role
@@ -136,6 +137,30 @@ def bullet_improver():
     return jsonify({
         **result,
         "message": "Bullet point improved successfully"
+    })
+    
+@app.route("/resume_vs_job", methods=["GET","POST"])
+def resume_vs_job():
+
+    if request.method == "GET":
+        return render_template("resume_vs_job.html")
+
+    job_description = request.form.get("job_description")
+    resume_file = request.files.get("resume")
+
+    if not job_description or not resume_file:
+        return jsonify({"error": "Resume and job description required"})
+
+    filepath = os.path.join(app.config["UPLOAD_FOLDER"], resume_file.filename)
+    resume_file.save(filepath)
+
+    resume_text = extract_resume_text(filepath)
+
+    result = analyze_resume_vs_job(resume_text, job_description)
+
+    return jsonify({
+        **result,
+        "message": "Resume vs Job analysis completed"
     })
     
 if __name__ == "__main__":

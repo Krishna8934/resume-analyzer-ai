@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Resume vs Job Description</title>
+</head>
+
+<body>
+
+<h2>Resume vs Job Description Analyzer</h2>
+
+<form action="/resume_vs_job" method="POST" enctype="multipart/form-data">
+
+<label>Upload Resume:</label>
+
+<br><br>
+
+<input type="file" name="resume" required>
+
+<br><br>
+
+<label>Paste Job Description:</label>
+
+<br><br>
+
+<textarea name="job_description" rows="10" cols="80"
+placeholder="Paste the job description here"></textarea>
+
+<br><br>
+
+<button type="submit">Analyze Match</button>
+
+</form>
+
+</body>
+</html>
