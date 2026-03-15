@@ -1,36 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-<title>Resume vs Job Description</title>
+<meta charset="UTF-8">
+<title>Resume vs Job Description Analyzer</title>
+
+<style>
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f5f6fa;
+    text-align:center;
+    margin:0;
+    padding:0;
+}
+
+.title{
+    margin-top:40px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.container{
+    width:600px;
+    margin:auto;
+    margin-top:40px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.1);
+}
+
+.upload-box{
+    border:2px dashed #ccc;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+}
+
+textarea{
+    width:95%;
+    height:150px;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    resize:none;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:6px;
+    background:#4CAF50;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#3e8e41;
+}
+
+.back{
+    margin-top:20px;
+    display:block;
+    text-decoration:none;
+    color:#555;
+    font-size:14px;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h2>Resume vs Job Description Analyzer</h2>
+<div class="title">
+Resume vs Job Description Analyzer
+</div>
+
+<div class="container">
 
 <form action="/resume_vs_job" method="POST" enctype="multipart/form-data">
 
-<label>Upload Resume:</label>
-
+<div class="upload-box">
+<label><b>Upload Resume</b></label>
 <br><br>
-
 <input type="file" name="resume" required>
+</div>
 
+<label><b>Paste Job Description</b></label>
 <br><br>
 
-<label>Paste Job Description:</label>
-
-<br><br>
-
-<textarea name="job_description" rows="10" cols="80"
+<textarea name="job_description"
 placeholder="Paste the job description here"></textarea>
 
-<br><br>
+<br>
 
-<button type="submit">Analyze Match</button>
+<button type="submit">
+Analyze Match
+</button>
 
 </form>
+
+<a href="/" class="back">← Back to Home</a>
+
+</div>
 
 </body>
 </html>
