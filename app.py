@@ -97,30 +97,27 @@ def improve_resume():
 @app.route("/full_analysis", methods=["POST"])
 def full_analysis():
 
-    resume_file = request.files.get("resume")
-    job_role = request.form.get("job_role")
+    file = request.files["resume"]
+    job_role = request.form["job_role"]
 
-    if not resume_file:
-        return jsonify({"error": "Resume required"})
+    filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+    file.save(filepath)
 
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], resume_file.filename)
-    resume_file.save(filepath)
-
-    # Extract text only once
     resume_text = extract_resume_text(filepath)
 
-    # Run all AI functions
-    ats_result = analyze_resume(resume_text)
-    job_result = match_job_role(resume_text, job_role)
-    improve_result = suggest_resume_improvements(resume_text)
+    # run all analyses
+    ats = analyze_resume(resume_text)
+    job_match = match_job_role(resume_text, job_role)
+    improvements = suggest_resume_improvements(resume_text)
 
-    return jsonify({
-        "ATS_analysis": ats_result,
-        "job_match": job_result,
-        "improvements": improve_result,
-        "message": "Full resume analysis completed"
-    })
-    
+    result = {
+        "ATS_analysis": ats,
+        "job_match": job_match,
+        "improvements": improvements
+    }
+
+    return render_template("analysis_result.html", data=result)
+
 @app.route("/bullet_improver", methods=["GET", "POST"])
 def bullet_improver():
 
@@ -134,10 +131,11 @@ def bullet_improver():
 
     result = improve_bullet_point(bullet_point)
 
-    return jsonify({
-        **result,
-        "message": "Bullet point improved successfully"
-    })
+    
+    return render_template(
+        "bullet_improver.html",
+        improved=result["improved_bullet_point"]
+    )
     
 @app.route("/resume_vs_job", methods=["GET","POST"])
 def resume_vs_job():

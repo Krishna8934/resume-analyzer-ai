@@ -55,6 +55,14 @@ button:hover{
     background:#574fd6;
 }
 
+.result-box{
+margin-top:25px;
+background:#e8f5e9;
+padding:15px;
+border-radius:6px;
+border-left:5px solid #2ecc71;
+}
+
 .back{
     margin-top:20px;
     display:block;
@@ -87,6 +95,18 @@ Improve Bullet
 </button>
 
 </form>
+
+{% if improved %}
+
+<div class="result-box">
+
+<h3>Improved Bullet Point</h3>
+
+<p>{{ improved }}</p>
+
+</div>
+
+{% endif %}
 
 <a href="/" class="back">← Back to Home</a>
 

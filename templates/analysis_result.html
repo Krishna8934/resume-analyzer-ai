@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Resume Analysis Result</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f6fa;
+padding:40px;
+}
+
+.container{
+width:900px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+h2{
+margin-top:0;
+}
+
+.score{
+font-size:28px;
+font-weight:bold;
+color:#2ecc71;
+}
+
+ul{
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2>ATS Score</h2>
+
+<div class="score">
+{{data["ATS_analysis"]["ATS_score"]}} / 100
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Score Breakdown</h2>
+
+<ul>
+<li>Experience : {{data["ATS_analysis"]["experience_score"]}}</li>
+<li>Skills : {{data["ATS_analysis"]["skills_score"]}}</li>
+<li>Formatting : {{data["ATS_analysis"]["formatting_score"]}}</li>
+<li>Keyword Match : {{data["ATS_analysis"]["keyword_match_score"]}}</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Strengths</h2>
+
+<ul>
+{% for item in data["ATS_analysis"]["strengths"] %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Weaknesses</h2>
+
+<ul>
+{% for item in data["ATS_analysis"]["weaknesses"] %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Missing Keywords</h2>
+
+<ul>
+{% for item in data["ATS_analysis"]["missing_keywords"] %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Improvement Suggestions</h2>
+
+<ul>
+{% for item in data["ATS_analysis"]["improvement_suggestions"] %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+</div>
+
+</body>
+</html>
