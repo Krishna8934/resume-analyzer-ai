@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Resume vs Job Analysis</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f6fa;
+padding:40px;
+}
+
+.container{
+width:900px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+h2{
+margin-top:0;
+}
+
+.score{
+font-size:28px;
+font-weight:bold;
+color:#3498db;
+}
+
+ul{
+margin-top:10px;
+}
+
+.back-btn{
+display:inline-block;
+margin-top:20px;
+padding:10px 20px;
+background:#3498db;
+color:white;
+text-decoration:none;
+border-radius:6px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Match Score</h2>
+
+<div class="score">
+{{data["match_score"]}} / 100
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Matching Skills</h2>
+
+<ul>
+{% for item in data["matching_keywords"] %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Missing Skills</h2>
+
+<ul>
+{% for item in data["missing_keywords"] %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Recommendations</h2>
+
+<ul>
+{% for item in data["recommendations"] %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+<a href="/" class="back-btn">Analyze Another Resume</a>
+
+</div>
+
+</body>
+</html>

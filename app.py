@@ -156,10 +156,10 @@ def resume_vs_job():
 
     result = analyze_resume_vs_job(resume_text, job_description)
 
-    return jsonify({
-        **result,
-        "message": "Resume vs Job analysis completed"
-    })
+    return render_template(
+    "resume_vs_job_result.html",
+    data=result
+    )
     
 if __name__ == "__main__":
     app.run(debug=True)
