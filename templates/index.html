@@ -1,39 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>AI Resume Analyzer</title>
+<meta charset="UTF-8">
+<title>AI Resume Analyzer</title>
+
+<style>
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f5f6fa;
+    text-align:center;
+    margin:0;
+    padding:0;
+}
+
+/* Title */
+.title{
+    margin-top:40px;
+    font-size:32px;
+    font-weight:bold;
+}
+
+/* Main container */
+.container{
+    width:500px;
+    margin:auto;
+    margin-top:40px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Upload box */
+.upload-box{
+    border:2px dashed #ccc;
+    padding:30px;
+    margin-bottom:25px;
+    border-radius:10px;
+}
+
+.upload-box input{
+    margin-top:10px;
+}
+
+/* Input field */
+input[type="text"]{
+    width:90%;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+/* Buttons */
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+/* Analyze button */
+.analyze-btn{
+    background:#4CAF50;
+    color:white;
+    margin-top:15px;
+}
+
+/* Tool buttons */
+.tool-btn{
+    background:#6c63ff;
+    color:white;
+    width:100%;
+    margin-top:15px;
+}
+
+/* Section heading */
+.section-title{
+    margin-top:30px;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+/* Footer */
+.footer{
+    margin-top:30px;
+    font-size:14px;
+    color:#555;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h2>AI Resume Analyzer</h2>
+<div class="title">
+📄 AI Resume Analyzer
+</div>
+
+<div class="container">
 
 <form action="/full_analysis" method="POST" enctype="multipart/form-data">
 
-<label>Upload Resume:</label>
+<div class="upload-box">
+<h3>Upload Resume</h3>
 <input type="file" name="resume" required>
+</div>
 
+<label>Target Job Role</label>
 <br><br>
 
-<label>Target Job Role:</label>
-<input type="text" name="job_role" placeholder="e.g. Backend Developer">
+<input type="text" name="job_role" placeholder="fill here">
 
-<br><br>
+<br>
 
-<button type="submit">Analyze Resume</button>
+<button type="submit" class="analyze-btn">
+Analyze Resume
+</button>
 
 </form>
 
+<div class="section-title">
+Other AI Tools
+</div>
 
-<a href="/bullet_improver">
-<button>Bullet Point Improver</button>
+<a href="/bullet_improver" target="_blank">
+<button class="tool-btn">
+Bullet Point Improver
+</button>
 </a>
-
-
 
 <a href="/resume_vs_job" target="_blank">
-<button>Resume vs Job Description Analyzer</button>
+<button class="tool-btn">
+Resume vs Job Description Analyzer
+</button>
 </a>
+
+<div class="footer">
+created by krishna (linkedin | github)
+</div>
+
+</div>
 
 </body>
 </html>
